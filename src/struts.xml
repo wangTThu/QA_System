@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<constant name="struts.devMode" value="true" />
+<constant name="struts.i18n.encoding" value="utf-8"/>
+
+   <package name="qa_system" namespace="/" extends="struts-default">
+
+		<action name="home">
+			<result>/hello.jsp</result>
+			
+		</action>
+		<action name="manger"  class="qa_system.Main" method="search">
+			<result>/manger.jsp</result>
+		</action>
+		
+		<action name="login1" class="qa_system.Main" method="login_name">
+			<result name="success">/teacher.jsp</result>
+			<result type="redirectAction" name="error"  >/manger.action</result>
+		</action>
+		<action name="judge1" class="qa_system.Main" method="judge">
+			<result name="success">/teacher.jsp</result>
+		</action>
+		<action name="choose1" class="qa_system.Main" method="choose">
+			<result name="success">/teacher.jsp</result>
+		</action>
+		<action name="question1" class="qa_system.Main" method="question">
+			<result name="success">/teacher.jsp</result>
+		</action>
+		
+		<action name="construct" class="qa_system.Main" method="ConstructTest">
+			<result name="success">/hello.jsp</result>
+			<result name="error">/hello.jsp</result>
+		</action>
+		
+		
+		
+   </package>
+</struts>
