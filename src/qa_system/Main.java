@@ -1,9 +1,12 @@
 package qa_system;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.DatabaseMetaData;
 import com.mysql.jdbc.Statement;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -21,6 +24,7 @@ public class Main extends ActionSupport{
 	ArrayList<String> Description = new ArrayList<String>();
 	ArrayList<String> Answer1 = new ArrayList<String>();
 	ArrayList<String> HardLevel = new ArrayList<String>();
+	ArrayList<String> ExamList = new ArrayList<String>();
 	public String getUsername() {
 		return Username;
 	}
@@ -100,6 +104,14 @@ public class Main extends ActionSupport{
 	}
 	public void setProblems(String[] problems) {
 		this.problems = problems;
+	}
+	
+	public ArrayList<String> getExamList() {
+		return ExamList;
+	}
+	
+	public void setExamList(ArrayList<String> examList) {
+		ExamList = examList;
 	}
 	
 	public String login_name() throws SQLException {
@@ -239,6 +251,34 @@ public class Main extends ActionSupport{
 	
 
 	
+	public String exam() throws SQLException, ClassNotFoundException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"test"+"?characterEncoding=utf8","root","qazwsx@34"); 
+		DatabaseMetaData databaseMetaData = (DatabaseMetaData) connect.getMetaData();
+		ResultSet tables = databaseMetaData.getTables(null, null, "%", null);
+		while (tables.next()) {
+			if("num".equals(tables.getString("TABLE_NAME"))) {
+				continue;
+			}
+			ExamList.add(tables.getString("TABLE_NAME"));
+			HardLevel.add(GetHardLevel(tables.getString("TABLE_NAME")));
+		}
+		return SUCCESS;
+		
+		
+	}
+	public String GetHardLevel(String TableName) throws SQLException {
+		Statement stmt = (Statement) Tool.initSQL("test", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from "+TableName);
+		int hard=0;
+		int i=0;
+		while(rs.next()) {
+			hard += Integer.parseInt((rs.getString("hardlevel")));
+			i++;
+		}
+		float hl=hard/i;
+		return String.valueOf(hl);
+	}
 	
 	
 	

@@ -39,8 +39,9 @@
 
   
   <p>查看已组成的试卷</p>
-
+<form action="m2">
   <button class="btn_sign_up">进入</button>
+ </form>
 </div>
   </div>
        </div>

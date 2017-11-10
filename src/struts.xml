@@ -39,6 +39,10 @@
 			<result type="redirectAction">/manger.action</result>
 		</action>
 		
+		<action name="m2" class="qa_system.Main" method="exam">
+			<result>/examlist.jsp</result>
+		</action>
+		
 		
 		
    </package>
