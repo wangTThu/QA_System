@@ -20,11 +20,16 @@ public class Main extends ActionSupport{
 	public String choosed;
 	public String answer;
 	public String hard;
+	public String ExamName;
 	public String[] problems;
 	ArrayList<String> Description = new ArrayList<String>();
 	ArrayList<String> Answer1 = new ArrayList<String>();
 	ArrayList<String> HardLevel = new ArrayList<String>();
 	ArrayList<String> ExamList = new ArrayList<String>();
+	ArrayList<String> CA=new ArrayList<String>();
+	ArrayList<String> CB=new ArrayList<String>();
+	ArrayList<String> CC=new ArrayList<String>();
+	ArrayList<String> CD=new ArrayList<String>();
 	public String getUsername() {
 		return Username;
 	}
@@ -112,6 +117,37 @@ public class Main extends ActionSupport{
 	
 	public void setExamList(ArrayList<String> examList) {
 		ExamList = examList;
+	}
+	
+	public String getExamName() {
+		return ExamName;
+	}
+	public void setExamName(String examName) {
+		ExamName = examName;
+	}
+	public ArrayList<String> getCA() {
+		return CA;
+	}
+	public void setCA(ArrayList<String> cA) {
+		CA = cA;
+	}
+	public ArrayList<String> getCB() {
+		return CB;
+	}
+	public void setCB(ArrayList<String> cB) {
+		CB = cB;
+	}
+	public ArrayList<String> getCC() {
+		return CC;
+	}
+	public void setCC(ArrayList<String> cC) {
+		CC = cC;
+	}
+	public ArrayList<String> getCD() {
+		return CD;
+	}
+	public void setCD(ArrayList<String> cD) {
+		CD = cD;
 	}
 	
 	public String login_name() throws SQLException {
@@ -281,6 +317,28 @@ public class Main extends ActionSupport{
 	}
 	
 	
+	public String ShowExam() throws SQLException {
+		Statement stmt = (Statement) Tool.initSQL("test", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from "+ExamName);
+		while(rs.next()) {
+			if(rs.getString("type").equals("choose")) {
+				Description.add("选择题:"+rs.getString("description")+"()");
+				System.out.println(rs.getString("description"));
+				CA.add("A:"+rs.getString("optiona"));
+				CB.add("B:"+rs.getString("optionb"));
+				CC.add("C:"+rs.getString("optionc"));
+				CD.add("D:"+rs.getString("optiond"));
+			}
+			else if(rs.getString("type").equals("judge")){
+				Description.add("判断题："+rs.getString("description")+"()");
+				System.out.println(rs.getString("description"));
+			}
+			else {
+				Description.add("问答题："+rs.getString("description")+"()");
+			}
+		}
+		return SUCCESS;
+	}
 	
 	
 	
