@@ -1,9 +1,12 @@
 package qa_system;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.DatabaseMetaData;
 import com.mysql.jdbc.Statement;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -17,10 +20,16 @@ public class Main extends ActionSupport{
 	public String choosed;
 	public String answer;
 	public String hard;
+	public String ExamName;
 	public String[] problems;
 	ArrayList<String> Description = new ArrayList<String>();
 	ArrayList<String> Answer1 = new ArrayList<String>();
 	ArrayList<String> HardLevel = new ArrayList<String>();
+	ArrayList<String> ExamList = new ArrayList<String>();
+	ArrayList<String> CA=new ArrayList<String>();
+	ArrayList<String> CB=new ArrayList<String>();
+	ArrayList<String> CC=new ArrayList<String>();
+	ArrayList<String> CD=new ArrayList<String>();
 	public String getUsername() {
 		return Username;
 	}
@@ -100,6 +109,45 @@ public class Main extends ActionSupport{
 	}
 	public void setProblems(String[] problems) {
 		this.problems = problems;
+	}
+	
+	public ArrayList<String> getExamList() {
+		return ExamList;
+	}
+	
+	public void setExamList(ArrayList<String> examList) {
+		ExamList = examList;
+	}
+	
+	public String getExamName() {
+		return ExamName;
+	}
+	public void setExamName(String examName) {
+		ExamName = examName;
+	}
+	public ArrayList<String> getCA() {
+		return CA;
+	}
+	public void setCA(ArrayList<String> cA) {
+		CA = cA;
+	}
+	public ArrayList<String> getCB() {
+		return CB;
+	}
+	public void setCB(ArrayList<String> cB) {
+		CB = cB;
+	}
+	public ArrayList<String> getCC() {
+		return CC;
+	}
+	public void setCC(ArrayList<String> cC) {
+		CC = cC;
+	}
+	public ArrayList<String> getCD() {
+		return CD;
+	}
+	public void setCD(ArrayList<String> cD) {
+		CD = cD;
 	}
 	
 	public String login_name() throws SQLException {
@@ -239,8 +287,58 @@ public class Main extends ActionSupport{
 	
 
 	
+	public String exam() throws SQLException, ClassNotFoundException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"test"+"?characterEncoding=utf8","root","qazwsx@34"); 
+		DatabaseMetaData databaseMetaData = (DatabaseMetaData) connect.getMetaData();
+		ResultSet tables = databaseMetaData.getTables(null, null, "%", null);
+		while (tables.next()) {
+			if("num".equals(tables.getString("TABLE_NAME"))) {
+				continue;
+			}
+			ExamList.add(tables.getString("TABLE_NAME"));
+			HardLevel.add(GetHardLevel(tables.getString("TABLE_NAME")));
+		}
+		return SUCCESS;
+		
+		
+	}
+	public String GetHardLevel(String TableName) throws SQLException {
+		Statement stmt = (Statement) Tool.initSQL("test", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from "+TableName);
+		int hard=0;
+		int i=0;
+		while(rs.next()) {
+			hard += Integer.parseInt((rs.getString("hardlevel")));
+			i++;
+		}
+		float hl=hard/i;
+		return String.valueOf(hl);
+	}
 	
 	
+	public String ShowExam() throws SQLException {
+		Statement stmt = (Statement) Tool.initSQL("test", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from "+ExamName);
+		while(rs.next()) {
+			if(rs.getString("type").equals("choose")) {
+				Description.add("选择题:"+rs.getString("description")+"()");
+				System.out.println(rs.getString("description"));
+				CA.add("A:"+rs.getString("optiona"));
+				CB.add("B:"+rs.getString("optionb"));
+				CC.add("C:"+rs.getString("optionc"));
+				CD.add("D:"+rs.getString("optiond"));
+			}
+			else if(rs.getString("type").equals("judge")){
+				Description.add("判断题："+rs.getString("description")+"()");
+				System.out.println(rs.getString("description"));
+			}
+			else {
+				Description.add("问答题："+rs.getString("description")+"()");
+			}
+		}
+		return SUCCESS;
+	}
 	
 	
 	
