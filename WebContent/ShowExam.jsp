@@ -19,13 +19,13 @@
   <section>
   <!--for demo wrap-->
   <h1>题目列表</h1>
+   <s:iterator value="%{Description}" status="st">
   <div class="tbl-header">
+ 
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>试卷</th>
-          <th>试卷难度值</th>
-          <th>重复率</th>
+          <th><s:property value="%{Description[#st.index]}"/></th>
         </tr>
       </thead>
     </table>
@@ -34,30 +34,22 @@
     <table cellpadding="0" cellspacing="0" border="0">
       
       <tbody>
-      	<s:iterator value="%{ExamList}" status="st" >
        <tr>
-          <td><s:url action="showexam" var="Link">
-			    <s:param name="ExamName"><s:property value="%{ExamList[#st.index]}"/></s:param>
-			  </s:url>
-			  <a href="${Link}"><s:property value="%{ExamList[#st.index]}"/></a>
-		  </td>
-          <td><s:property value="%{HardLevel[#st.index]}"/></td>
-          <td>0%</td>
+          <td><s:property value="%{CA[#st.index]}"/></td>
+          <td><s:property value="%{CB[#st.index]}"/></td>
+          <td><s:property value="%{CC[#st.index]}"/></td>
+          <td><s:property value="%{CD[#st.index]}"/></td>
         </tr>
-         </s:iterator> 
       </tbody>
       
     </table>
+      
   </div>
+</s:iterator> 
 </section>
 
 
-<!-- follow me template -->
-<div class="made-with-love">
-  Made with
-  <i>♥</i> by
-  <a target="_blank" href="https://codepen.io/nikhil8krishnan">Nikhil Krishnan</a>
-</div>
+
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
     <script  src="js/index.js"></script>
