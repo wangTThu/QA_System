@@ -18,7 +18,7 @@
 		
 		<action name="login1" class="qa_system.Main" method="login_name">
 			<result name="success">/teacher.jsp</result>
-			<result type="redirectAction" name="error"  >/manger.action</result>
+			<result name="error"  >/mangerLogin.jsp</result>
 		</action>
 		<action name="judge1" class="qa_system.Main" method="judge">
 			<result name="success">/teacher.jsp</result>
@@ -33,6 +33,10 @@
 		<action name="construct" class="qa_system.Main" method="ConstructTest">
 			<result name="success">/hello.jsp</result>
 			<result name="error">/hello.jsp</result>
+		</action>
+		
+		<action name="m1">
+			<result type="redirectAction">/manger.action</result>
 		</action>
 		
 		
