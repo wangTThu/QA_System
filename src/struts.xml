@@ -36,7 +36,7 @@
 		</action>
 		
 		<action name="m1">
-			<result type="redirectAction">/manger.action</result>
+			<result>/examname.jsp</result>
 		</action>
 		
 		<action name="m2" class="qa_system.Main" method="exam">
@@ -45,6 +45,11 @@
 		
 		<action name="showexam" class="qa_system.Main" method="ShowExam">
 			<result>/ShowExam.jsp</result>
+		</action>
+
+		
+		<action name="m3" class="qa_system.Main" method="get">
+			<result>/manger.jsp</result>
 		</action>
 		
 		

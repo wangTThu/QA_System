@@ -21,6 +21,8 @@ public class Main extends ActionSupport{
 	public String answer;
 	public String hard;
 	public String ExamName;
+	public String examn;
+	public String EXNM;
 	public String[] problems;
 	ArrayList<String> Description = new ArrayList<String>();
 	ArrayList<String> Answer1 = new ArrayList<String>();
@@ -148,6 +150,18 @@ public class Main extends ActionSupport{
 	}
 	public void setCD(ArrayList<String> cD) {
 		CD = cD;
+	}
+	public String getExamn() {
+		return examn;
+	}
+	public void setExamn(String examn) {
+		this.examn = examn;
+	}
+	public String getEXNM() {
+		return EXNM;
+	}
+	public void setEXNM(String eXNM) {
+		EXNM = eXNM;
 	}
 	
 	public String login_name() throws SQLException {
@@ -339,6 +353,11 @@ public class Main extends ActionSupport{
 		}
 		return SUCCESS;
 	}
+	public String get() {
+		System.out.println(EXNM);
+		return SUCCESS;
+	}
+	
 	
 	
 	

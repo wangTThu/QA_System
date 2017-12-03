@@ -18,7 +18,7 @@
 <body>
   <section>
   <!--for demo wrap-->
-  <h1>题目列表</h1>
+  <h1>选择题列表</h1>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
@@ -52,11 +52,7 @@
 
 
 <!-- follow me template -->
-<div class="made-with-love">
-  Made with
-  <i>♥</i> by
-  <a target="_blank" href="https://codepen.io/nikhil8krishnan">Nikhil Krishnan</a>
-</div>
+
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
     <script  src="js/index.js"></script>

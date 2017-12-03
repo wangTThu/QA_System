@@ -171,9 +171,9 @@ body{
 		</div>
 		<br>
 		<div class="login">
-		<form action="login1" id="lloggin">
-				<input type="text" placeholder="username" name="Username"><br>
-				<input type="password" placeholder="password" name="Password"><br>
+		<form action="m3" id="lloggin">
+				<input type="text" placeholder="试卷题目" name="EXNM"><br>
+				
 				<input type="button" onclick="formSubmit()" value="Login">
 			</form>
 		</div>

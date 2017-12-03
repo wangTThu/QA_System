@@ -5,7 +5,7 @@
 <html >
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Fixed table header</title>
+  <title>题目</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 
@@ -53,11 +53,7 @@
 
 
 <!-- follow me template -->
-<div class="made-with-love">
-  Made with
-  <i>♥</i> by
-  <a target="_blank" href="https://codepen.io/nikhil8krishnan">Nikhil Krishnan</a>
-</div>
+
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
     <script  src="js/index.js"></script>

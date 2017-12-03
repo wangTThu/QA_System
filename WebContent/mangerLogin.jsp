@@ -6,7 +6,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Login & Sign Up Form Concept</title>
+  <title>Login</title>
   
   
   <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:400,300'>
