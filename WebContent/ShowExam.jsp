@@ -5,7 +5,11 @@
 <html >
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<<<<<<< HEAD
   <title>试卷</title>
+=======
+  <title>Fixed table header</title>
+>>>>>>> branch 'master' of https://github.com/wangTThu/QA_System.git
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 

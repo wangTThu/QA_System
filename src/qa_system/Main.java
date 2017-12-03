@@ -21,8 +21,11 @@ public class Main extends ActionSupport{
 	public String answer;
 	public String hard;
 	public String ExamName;
+<<<<<<< HEAD
 	public String examn;
 	public String EXNM;
+=======
+>>>>>>> branch 'master' of https://github.com/wangTThu/QA_System.git
 	public String[] problems;
 	ArrayList<String> Description = new ArrayList<String>();
 	ArrayList<String> Answer1 = new ArrayList<String>();
@@ -151,6 +154,7 @@ public class Main extends ActionSupport{
 	public void setCD(ArrayList<String> cD) {
 		CD = cD;
 	}
+<<<<<<< HEAD
 	public String getExamn() {
 		return examn;
 	}
@@ -163,6 +167,8 @@ public class Main extends ActionSupport{
 	public void setEXNM(String eXNM) {
 		EXNM = eXNM;
 	}
+=======
+>>>>>>> branch 'master' of https://github.com/wangTThu/QA_System.git
 	
 	public String login_name() throws SQLException {
 		Statement stmt = (Statement) Tool.initSQL("user", "root","qazwsx@34");
@@ -353,11 +359,14 @@ public class Main extends ActionSupport{
 		}
 		return SUCCESS;
 	}
+<<<<<<< HEAD
 	public String get() {
 		System.out.println(EXNM);
 		return SUCCESS;
 	}
 	
+=======
+>>>>>>> branch 'master' of https://github.com/wangTThu/QA_System.git
 	
 	
 	
