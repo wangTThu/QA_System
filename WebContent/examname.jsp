@@ -172,9 +172,9 @@ body{
 		<br>
 		<div class="login">
 		<form action="m3" id="lloggin">
-				<input type="text" placeholder="试卷题目" name="EXNM"><br>
+				<input type="text" placeholder="Name" name="EXNM"><br>
 				
-				<input type="button" onclick="formSubmit()" value="Login">
+				<input type="button" onclick="formSubmit()" value="confrim">
 			</form>
 		</div>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>

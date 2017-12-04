@@ -21,11 +21,10 @@ public class Main extends ActionSupport{
 	public String answer;
 	public String hard;
 	public String ExamName;
-<<<<<<< HEAD
 	public String examn;
 	public String EXNM;
-=======
->>>>>>> branch 'master' of https://github.com/wangTThu/QA_System.git
+	public String Title;
+	ArrayList<String> Multianswer = new ArrayList<String>();
 	public String[] problems;
 	ArrayList<String> Description = new ArrayList<String>();
 	ArrayList<String> Answer1 = new ArrayList<String>();
@@ -35,6 +34,12 @@ public class Main extends ActionSupport{
 	ArrayList<String> CB=new ArrayList<String>();
 	ArrayList<String> CC=new ArrayList<String>();
 	ArrayList<String> CD=new ArrayList<String>();
+	public String getTitle() {
+		return Title;
+	}
+	public void setTitle(String title) {
+		Title = title;
+	}
 	public String getUsername() {
 		return Username;
 	}
@@ -154,7 +159,7 @@ public class Main extends ActionSupport{
 	public void setCD(ArrayList<String> cD) {
 		CD = cD;
 	}
-<<<<<<< HEAD
+
 	public String getExamn() {
 		return examn;
 	}
@@ -167,8 +172,12 @@ public class Main extends ActionSupport{
 	public void setEXNM(String eXNM) {
 		EXNM = eXNM;
 	}
-=======
->>>>>>> branch 'master' of https://github.com/wangTThu/QA_System.git
+	public ArrayList<String> getMultianswer() {
+		return Multianswer;
+	}
+	public void setMultianswer(ArrayList<String> multianswer) {
+		Multianswer = multianswer;
+	}
 	
 	public String login_name() throws SQLException {
 		Statement stmt = (Statement) Tool.initSQL("user", "root","qazwsx@34");
@@ -183,7 +192,7 @@ public class Main extends ActionSupport{
 		else {
 			return ERROR;
 		}
-	}
+               	}
 	public String judge() throws SQLException {
 		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
 		stmt.executeUpdate("INSERT INTO judge (description, answer, hardlevel)VALUES(\""+choose_text+"\", \""+answer+"\", \""+hard+"\")");
@@ -203,6 +212,16 @@ public class Main extends ActionSupport{
 		stmt.executeUpdate("INSERT INTO question (description, answer, hardlevel)VALUES(\""+choose_text+"\", \""+answer+"\", \""+hard+"\")");
 		return "success";
 		
+	}
+	public String multichoose() throws SQLException{
+		String answer="";
+		for(int i=0;i<Multianswer.size();i++) {
+			answer+=Multianswer.get(i);
+		}
+		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
+		stmt.executeUpdate("INSERT INTO choose (description, optiona,optionb,optionc,optiond,answer, hardlevel)VALUES(\""+
+		choose_text+"\", \""+choosea+"\", \""+chooseb+"\", \""+choosec+"\", \""+choosed+"\", \""+answer+"\", \""+hard+"\")");
+		return "success";
 	}
 	
 	public String search() throws SQLException{
@@ -231,6 +250,33 @@ public class Main extends ActionSupport{
 		return SUCCESS;
 	}
 	
+	public String searchq() throws SQLException {
+		Title="问答题";
+		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from choose");
+		rs = stmt.executeQuery("select * from question");
+		while(rs.next()) {
+			Description.add("问答题:"+rs.getString("description"));
+			//System.out.println(rs.getString("description"));
+			Answer1.add(rs.getString("answer"));
+			HardLevel.add(rs.getString("hardlevel"));
+		}
+		return SUCCESS;
+	}
+	public String searchj() throws SQLException {
+		Title="判断题";
+		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from choose");
+		rs = stmt.executeQuery("select * from judge");
+		while(rs.next()) {
+			Description.add("判断题:"+rs.getString("description"));
+			//System.out.println(rs.getString("description"));
+			Answer1.add(rs.getString("answer"));
+			HardLevel.add(rs.getString("hardlevel"));
+		}
+		return SUCCESS;
+	}
+	
 	public String ConstructTest() throws SQLException {
 		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
 		Statement stmt1 = (Statement) Tool.initSQL("test", "root","qazwsx@34");
@@ -243,11 +289,12 @@ public class Main extends ActionSupport{
 			System.out.println("未知错误");
 			return ERROR;
 		}
-		int id= rs.getInt("id");
-		stmt1.executeUpdate("UPDATE num SET id= "+Integer.toString(id+1)+ " WHERE id= "+Integer.toString(id));
-		String table = "exam"+Integer.toString(id+1);
-		stmt1.executeUpdate("create table "+table+" (type varchar(20) NOT NULL,description varchar(400),optiona varchar(20),"
-				+ "optionb varchar(20),optionc varchar(20),optiond varchar(20),answer varchar(50),hardlevel varchar(20))");
+		String id= rs.getString("name");
+		//stmt1.executeUpdate("UPDATE num SET id= "+Integer.toString(id+1)+ " WHERE id= "+Integer.toString(id));
+		//String table = "exam"+Integer.toString(id+1);
+		//stmt1.executeUpdate("create table "+table+" (type varchar(20) NOT NULL,description varchar(400),optiona varchar(20),"
+			//	+ "optionb varchar(20),optionc varchar(20),optiond varchar(20),answer varchar(50),hardlevel varchar(20))");
+		//String table = 
 		for(int i=0;i<problems.length;i++) {
 			String a[]=problems[i].split(":");
 			String descrp=problems[i].substring(4);
@@ -266,7 +313,7 @@ public class Main extends ActionSupport{
 				String optiond = rs.getString("optiond");
 				String answer = rs.getString("answer");
 				String hard=rs.getString("hardlevel");
-				stmt1.executeUpdate("INSERT INTO "+table+" (type,description, optiona,optionb,optionc,optiond,answer, hardlevel)VALUES(\""+
+				stmt1.executeUpdate("INSERT INTO "+id+" (type,description, optiona,optionb,optionc,optiond,answer, hardlevel)VALUES(\""+
 						"choose"+"\", \""+descrp+"\", \""+optiona+"\", \""+optionb+"\", \""+optionc+"\", \""+optiond+"\", \""+answer+"\", \""+hard+"\")");
 				
 				
@@ -282,7 +329,7 @@ public class Main extends ActionSupport{
 				}
 				String answer = rs.getString("answer");
 				String hard=rs.getString("hardlevel");
-				stmt1.executeUpdate("INSERT INTO "+ table+" ( type,description, answer, hardlevel)VALUES(\""+"judge"+"\", \""+descrp+"\", \""+answer+"\", \""+hard+"\")");
+				stmt1.executeUpdate("INSERT INTO "+ id+" ( type,description, answer, hardlevel)VALUES(\""+"judge"+"\", \""+descrp+"\", \""+answer+"\", \""+hard+"\")");
 				
 				
 			}
@@ -297,11 +344,22 @@ public class Main extends ActionSupport{
 				}
 				String answer = rs.getString("answer");
 				String hard=rs.getString("hardlevel");
-				stmt1.executeUpdate("INSERT INTO "+"  "+ table+" ( type,description, answer, hardlevel)VALUES(\""+"question"+"\", \""+descrp+"\", \""+answer+"\", \""+hard+"\")");
+				stmt1.executeUpdate("INSERT INTO "+"  "+ id+" ( type,description, answer, hardlevel)VALUES(\""+"question"+"\", \""+descrp+"\", \""+answer+"\", \""+hard+"\")");
 				
 			}
 		}
-		return SUCCESS;
+		if(CN>=1) {
+			System.out.println("cc");
+			return SUCCESS;
+		}
+		else if(JN>=1) {
+			System.out.println("jj");
+			return ERROR;
+		}
+		else {
+			System.out.println("qq");
+			return "fail";
+		}
 		
 	}
 	
@@ -359,14 +417,38 @@ public class Main extends ActionSupport{
 		}
 		return SUCCESS;
 	}
-<<<<<<< HEAD
-	public String get() {
-		System.out.println(EXNM);
+
+	public String getchoose() throws SQLException {
+		Title="选择题";
+		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from choose");
+		while(rs.next()) {
+			Description.add("选择题:"+rs.getString("description"));
+			Answer1.add(rs.getString("answer"));
+			HardLevel.add(rs.getString("hardlevel"));
+		}
+		Statement stmt1 = (Statement) Tool.initSQL("test", "root","qazwsx@34");
+		rs=stmt1.executeQuery("select * from num");
+		String e_name="";
+		if(!rs.next()){
+			System.out.println("未知错误");
+			
+			return ERROR;
+		}
+		e_name= rs.getString("name");
+		System.out.println(e_name);
+		//stmt1.executeUpdate("UPDATE num set name= "+EXNM);
+		//System.out.println("dwe");
+		stmt1.executeUpdate("create table "+EXNM+" (type varchar(20) NOT NULL,description varchar(400),optiona varchar(20),"
+				+ "optionb varchar(20),optionc varchar(20),optiond varchar(20),answer varchar(50),hardlevel varchar(20))");
+		stmt1.executeUpdate("UPDATE num set name= "+"\""+(String) EXNM+"\"");
+		System.out.println("dwe");
 		return SUCCESS;
 	}
+
+
 	
-=======
->>>>>>> branch 'master' of https://github.com/wangTThu/QA_System.git
+
 	
 	
 	

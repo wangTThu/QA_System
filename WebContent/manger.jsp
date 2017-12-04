@@ -18,7 +18,7 @@
 <body>
   <section>
   <!--for demo wrap-->
-  <h1>选择题列表</h1>
+  <h1><s:property value="Title"/>列表</h1>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>

@@ -25,6 +25,7 @@
         <li><a onclick="judge()" >判断题</a></li>
         <li><a onclick="question()">问答题</a></li>
         <li><a onclick="disappear()">选择题(单选)</a></li>
+        <li><a onclick="multichoose()">选择题(多选)</a></li>
       </ul>
     </li>
     <li><a >删除题目</a></li>
@@ -113,6 +114,29 @@
 	</div>
   </div>
   
+	<div id="mc">
+	<div class="container">	
+		<form class="choose" action="multichoose">
+      <h3>题目描述:</h3><br/>
+      <textarea name="choose_text" style="width:330px;height:80px;"></textarea><br/>
+      <input type="text" placeholder="选项A" name="choosea" >
+      <input type="text" placeholder="选项B" name="chooseb"><br/>
+      <input type="text" placeholder="选项C" name="choosec">
+      <input type="text" placeholder="选项D" name="choosed"><br/>
+      <input type="checkbox" value="A" name="Multianswer" style="zoom:200%">A:
+      <input type="checkbox" value="B" name="Multianswer" style="zoom:200%">B:
+      <input type="checkbox" value="C" name="Multianswer" style="zoom:200%">C:
+      <input type="checkbox" value="D" name="Multianswer" style="zoom:200%">D:<br/>
+      <input type="checkbox" value="1" name="hard" style="zoom:200%">1
+      <input type="checkbox" value="2" name="hard" style="zoom:200%">2
+      <input type="checkbox" value="3" name="hard" style="zoom:200%">3
+      <input type="checkbox" value="4" name="hard" style="zoom:200%">4
+      <input type="checkbox" value="5" name="hard" style="zoom:200%">5<br/>
+      <button type="submit" id="login-button">提交</button>
+
+		</form>
+	</div>
+  </div>
 
 
 

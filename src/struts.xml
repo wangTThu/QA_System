@@ -26,14 +26,28 @@
 		<action name="choose1" class="qa_system.Main" method="choose">
 			<result name="success">/teacher.jsp</result>
 		</action>
+		
+		
+		<action name="multichoose" class="qa_system.Main" method="multichoose">
+			<result name="success">/teacher.jsp</result>
+		</action>
 		<action name="question1" class="qa_system.Main" method="question">
 			<result name="success">/teacher.jsp</result>
 		</action>
 		
 		<action name="construct" class="qa_system.Main" method="ConstructTest">
-			<result name="success">/hello.jsp</result>
-			<result name="error">/hello.jsp</result>
+			<result name="success" type="redirect">/manger1.action</result>
+			<result name="fail">/hello.jsp</result>
+			<result name="error" type="redirect">/getquestion.action</result>
 		</action>
+		<action name="manger1" class="qa_system.Main" method="searchj">
+			<result name="success">/manger.jsp</result>
+		</action>
+		<action name="getquestion" class="qa_system.Main" method="searchq">
+			<result name="success">/manger.jsp</result>
+		</action>
+		
+		
 		
 		<action name="m1">
 			<result>/examname.jsp</result>
@@ -46,16 +60,15 @@
 		<action name="showexam" class="qa_system.Main" method="ShowExam">
 			<result>/ShowExam.jsp</result>
 		</action>
+		
+		
+		
 
 		
-		<action name="m3" class="qa_system.Main" method="get">
+		<action name="m3" class="qa_system.Main" method="getchoose">
 			<result>/manger.jsp</result>
 		</action>
-		
-		<action name="m2" class="qa_system.Main" method="exam">
-			<result>/examlist.jsp</result>
-		</action>
-		
+
 		
 		
    </package>
