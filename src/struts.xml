@@ -19,6 +19,7 @@
 		<action name="login1" class="qa_system.Main" method="login_name">
 			<result name="success">/teacher.jsp</result>
 			<result name="error"  >/mangerLogin.jsp</result>
+			<result name="student">/DoTest.jsp</result>
 		</action>
 		<action name="judge1" class="qa_system.Main" method="judge">
 			<result name="success">/teacher.jsp</result>
@@ -59,6 +60,10 @@
 		
 		<action name="showexam" class="qa_system.Main" method="ShowExam">
 			<result>/ShowExam.jsp</result>
+		</action>
+		
+		<action name="makeexam" class="qa_system.Main" method="MakeExam">
+			<result>/TestExam.jsp</result>
 		</action>
 		
 		

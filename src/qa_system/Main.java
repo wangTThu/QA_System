@@ -179,20 +179,32 @@ public class Main extends ActionSupport{
 		Multianswer = multianswer;
 	}
 	
-	public String login_name() throws SQLException {
+	public String login_name() throws SQLException, ClassNotFoundException {
 		Statement stmt = (Statement) Tool.initSQL("user", "root","qazwsx@34");
 		ResultSet rs = stmt.executeQuery("select * from user1 where username=\""+Username+"\"");
 		if(!rs.next()){
 			System.out.println("dwd");
-			return ERROR;
+			return "student";
 		}
 		if(Username.equals(rs.getString("Username"))&&Password.equals(rs.getString("password"))&&rs.getString("whose").equals("teacher")) {
 			return SUCCESS;
 		}
-		else {
+		else if(Password.equals(rs.getString("password"))&&rs.getString("whose").equals("manger")){
 			return ERROR;
 		}
-               	}
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"test"+"?characterEncoding=utf8","root","qazwsx@34"); 
+		DatabaseMetaData databaseMetaData = (DatabaseMetaData) connect.getMetaData();
+		ResultSet tables = databaseMetaData.getTables(null, null, "%", null);
+		while (tables.next()) {
+			if("num".equals(tables.getString("TABLE_NAME"))) {
+				continue;
+			}
+			ExamList.add(tables.getString("TABLE_NAME"));
+			HardLevel.add(GetHardLevel(tables.getString("TABLE_NAME")));
+		}
+		return "student";
+    }
 	public String judge() throws SQLException {
 		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
 		stmt.executeUpdate("INSERT INTO judge (description, answer, hardlevel)VALUES(\""+choose_text+"\", \""+answer+"\", \""+hard+"\")");
@@ -417,7 +429,27 @@ public class Main extends ActionSupport{
 		}
 		return SUCCESS;
 	}
-
+	
+	public String MakeExam() throws SQLException {
+		Statement stmt = (Statement) Tool.initSQL("test", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from "+ExamName);
+		while(rs.next()) {
+			if(rs.getString("type").equals("choose")) {
+				Description.add("选择题:"+rs.getString("description")+"()");
+				System.out.println(rs.getString("description"));
+				CA.add("A:"+rs.getString("optiona"));
+				CB.add("B:"+rs.getString("optionb"));
+				CC.add("C:"+rs.getString("optionc"));
+				CD.add("D:"+rs.getString("optiond"));
+			}
+			else if(rs.getString("type").equals("judge")){
+				Description.add("判断题："+rs.getString("description")+"()");
+				System.out.println(rs.getString("description"));
+			}
+		}
+		return SUCCESS;
+	}
+	
 	public String getchoose() throws SQLException {
 		Title="选择题";
 		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
