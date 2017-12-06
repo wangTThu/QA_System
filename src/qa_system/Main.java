@@ -19,6 +19,7 @@ public class Main extends ActionSupport{
 	public String choosec;
 	public String choosed;
 	public String answer;
+	double Score=0.0;
 	public String hard;
 	public String ExamName;
 	public String examn;
@@ -26,6 +27,7 @@ public class Main extends ActionSupport{
 	public String Title;
 	ArrayList<String> Multianswer = new ArrayList<String>();
 	public String[] problems;
+	public String[] StudentAnswer;
 	ArrayList<String> Description = new ArrayList<String>();
 	ArrayList<String> Answer1 = new ArrayList<String>();
 	ArrayList<String> HardLevel = new ArrayList<String>();
@@ -178,6 +180,13 @@ public class Main extends ActionSupport{
 	public void setMultianswer(ArrayList<String> multianswer) {
 		Multianswer = multianswer;
 	}
+	public String[] getStudentAnswer() {
+		return StudentAnswer;
+	}
+	public void setStudentAnswer(String[] studentAnswer) {
+		StudentAnswer = studentAnswer;
+	}
+
 	
 	public String login_name() throws SQLException, ClassNotFoundException {
 		Statement stmt = (Statement) Tool.initSQL("user", "root","qazwsx@34");
@@ -478,7 +487,37 @@ public class Main extends ActionSupport{
 		return SUCCESS;
 	}
 
-
+	public String getscore() throws SQLException
+	{
+		
+		double correct=0;
+		int i=0;
+		Statement stmt = (Statement) Tool.initSQL("test", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from "+ExamName);
+		while(rs.next()) {
+			if(rs.getString("type").equals("choose")) {
+				if(rs.getString("answer").equals(StudentAnswer[i])) {
+					correct+=1;
+					i++;
+				}
+			}
+			else if(rs.getString("type").equals("judge")){
+				if(rs.getString("answer").equals(StudentAnswer[i])) {
+					correct+=1;
+					i++;
+				}
+			}
+		}
+		Score=(correct/i)*100;
+		System.out.println(Score);
+		return SUCCESS;
+	}
+	public double getScore() {
+		return Score;
+	}
+	public void setScore(double score) {
+		Score = score;
+	}
 	
 
 	
