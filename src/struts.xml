@@ -18,22 +18,42 @@
 		
 		<action name="login1" class="qa_system.Main" method="login_name">
 			<result name="success">/teacher.jsp</result>
+			<result name="chinese">/chineseteacher.jsp</result>
 			<result name="error"  >/mangerLogin.jsp</result>
 			<result name="student">/DoTest.jsp</result>
 		</action>
+		
 		<action name="judge1" class="qa_system.Main" method="judge">
 			<result name="success">/teacher.jsp</result>
 		</action>
+		
+		<action name="cjudge1" class="qa_system.Main" method="cjudge">
+			<result name="success">/chineseteacher.jsp</result>
+		</action>
+		
+		
 		<action name="choose1" class="qa_system.Main" method="choose">
 			<result name="success">/teacher.jsp</result>
 		</action>
 		
+		<action name="cchoose1" class="qa_system.Main" method="cchoose">
+			<result name="success">/chineseteacher.jsp</result>
+		</action>
 		
 		<action name="multichoose" class="qa_system.Main" method="multichoose">
 			<result name="success">/teacher.jsp</result>
 		</action>
+		
+		<action name="cmultichoose" class="qa_system.Main" method="cmultichoose">
+			<result name="success">/chineseteacher.jsp</result>
+		</action>
+		
 		<action name="question1" class="qa_system.Main" method="question">
 			<result name="success">/teacher.jsp</result>
+		</action>
+		
+		<action name="cquestion1" class="qa_system.Main" method="cquestion">
+			<result name="success">/chineseteacher.jsp</result>
 		</action>
 		
 		<action name="construct" class="qa_system.Main" method="ConstructTest">

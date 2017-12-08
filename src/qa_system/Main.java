@@ -195,11 +195,14 @@ public class Main extends ActionSupport{
 			System.out.println("dwd");
 			return "student";
 		}
-		if(Username.equals(rs.getString("Username"))&&Password.equals(rs.getString("password"))&&rs.getString("whose").equals("teacher")) {
+		if(Username.equals(rs.getString("Username"))&&Password.equals(rs.getString("password"))&&rs.getString("whose").equals("teacher")&&rs.getString("subject").equals("math")) {
 			return SUCCESS;
 		}
 		else if(Password.equals(rs.getString("password"))&&rs.getString("whose").equals("manger")){
 			return ERROR;
+		}
+		else if(Username.equals(rs.getString("Username"))&&Password.equals(rs.getString("password"))&&rs.getString("whose").equals("teacher")&&rs.getString("subject").equals("chinese")) {
+			return "chinese";
 		}
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"test"+"?characterEncoding=utf8","root","qazwsx@34"); 
@@ -216,32 +219,67 @@ public class Main extends ActionSupport{
     }
 	public String judge() throws SQLException {
 		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
-		stmt.executeUpdate("INSERT INTO judge (description, answer, hardlevel)VALUES(\""+choose_text+"\", \""+answer+"\", \""+hard+"\")");
+		stmt.executeUpdate("INSERT INTO judge (description, answer, hardlevel,subject)VALUES(\""+choose_text+"\", \""+answer+"\", \""+hard+"\", \""+"math"+"\")");
+		return "success";
+		
+	}
+	
+	public String cjudge() throws SQLException {
+		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
+		stmt.executeUpdate("INSERT INTO judge (description, answer, hardlevel,subject)VALUES(\""+choose_text+"\", \""+answer+"\", \""+hard+"\", \""+"chinese"+"\")");
 		return "success";
 		
 	}
 	
 	public String choose() throws SQLException {
 		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
-		stmt.executeUpdate("INSERT INTO choose (description, optiona,optionb,optionc,optiond,answer, hardlevel)VALUES(\""+
-		choose_text+"\", \""+choosea+"\", \""+chooseb+"\", \""+choosec+"\", \""+choosed+"\", \""+answer+"\", \""+hard+"\")");
+		stmt.executeUpdate("INSERT INTO choose (description, optiona,optionb,optionc,optiond,answer, hardlevel,subject)VALUES(\""+
+		choose_text+"\", \""+choosea+"\", \""+chooseb+"\", \""+choosec+"\", \""+choosed+"\", \""+answer+"\", \""+hard+"\", \""+"math"+"\")");
 		return "success";
 		
 	}
+	
+	public String cchoose() throws SQLException {
+		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
+		stmt.executeUpdate("INSERT INTO choose (description, optiona,optionb,optionc,optiond,answer, hardlevel,subject)VALUES(\""+
+		choose_text+"\", \""+choosea+"\", \""+chooseb+"\", \""+choosec+"\", \""+choosed+"\", \""+answer+"\", \""+hard+"\", \""+"chinese"+"\")");
+		return "success";
+		
+	}
+	
 	public String question() throws SQLException {
 		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
-		stmt.executeUpdate("INSERT INTO question (description, answer, hardlevel)VALUES(\""+choose_text+"\", \""+answer+"\", \""+hard+"\")");
+		stmt.executeUpdate("INSERT INTO question (description, answer, hardlevel,subject)VALUES(\""+choose_text+"\", \""+answer+"\", \""+hard+"\", \""+"math"+"\")");
 		return "success";
 		
 	}
+	
+	public String cquestion() throws SQLException {
+		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
+		stmt.executeUpdate("INSERT INTO question (description, answer, hardlevel,subject)VALUES(\""+choose_text+"\", \""+answer+"\", \""+hard+"\", \""+"chinese"+"\")");
+		return "success";
+		
+	}
+	
 	public String multichoose() throws SQLException{
 		String answer="";
 		for(int i=0;i<Multianswer.size();i++) {
 			answer+=Multianswer.get(i);
 		}
 		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
-		stmt.executeUpdate("INSERT INTO choose (description, optiona,optionb,optionc,optiond,answer, hardlevel)VALUES(\""+
-		choose_text+"\", \""+choosea+"\", \""+chooseb+"\", \""+choosec+"\", \""+choosed+"\", \""+answer+"\", \""+hard+"\")");
+		stmt.executeUpdate("INSERT INTO choose (description, optiona,optionb,optionc,optiond,answer, hardlevel,subject)VALUES(\""+
+		choose_text+"\", \""+choosea+"\", \""+chooseb+"\", \""+choosec+"\", \""+choosed+"\", \""+answer+"\", \""+hard+"\", \""+"math"+"\")");
+		return "success";
+	}
+	
+	public String cmultichoose() throws SQLException{
+		String answer="";
+		for(int i=0;i<Multianswer.size();i++) {
+			answer+=Multianswer.get(i);
+		}
+		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
+		stmt.executeUpdate("INSERT INTO choose (description, optiona,optionb,optionc,optiond,answer, hardlevel,subject)VALUES(\""+
+		choose_text+"\", \""+choosea+"\", \""+chooseb+"\", \""+choosec+"\", \""+choosed+"\", \""+answer+"\", \""+hard+"\", \""+"chinese"+"\")");
 		return "success";
 	}
 	
