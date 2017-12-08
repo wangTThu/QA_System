@@ -171,7 +171,7 @@ body{
 		</div>
 		<br>
 		<div class="login">
-		<form action="m3" id="lloggin">
+		<form action="cm3" id="lloggin">
 				<input type="text" placeholder="TestName" name="EXNM"><br>
 				
 				<input type="button" onclick="formSubmit()" value="confrim">

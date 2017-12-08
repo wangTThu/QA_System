@@ -315,10 +315,12 @@ public class Main extends ActionSupport{
 		ResultSet rs = stmt.executeQuery("select * from choose");
 		rs = stmt.executeQuery("select * from question");
 		while(rs.next()) {
+			if(rs.getString("subject").equals("math")) {
 			Description.add("问答题:"+rs.getString("description"));
 			//System.out.println(rs.getString("description"));
 			Answer1.add(rs.getString("answer"));
 			HardLevel.add(rs.getString("hardlevel"));
+			}
 		}
 		return SUCCESS;
 	}
@@ -328,10 +330,45 @@ public class Main extends ActionSupport{
 		ResultSet rs = stmt.executeQuery("select * from choose");
 		rs = stmt.executeQuery("select * from judge");
 		while(rs.next()) {
+			if(rs.getString("subject").equals("math")) {
 			Description.add("判断题:"+rs.getString("description"));
 			//System.out.println(rs.getString("description"));
 			Answer1.add(rs.getString("answer"));
 			HardLevel.add(rs.getString("hardlevel"));
+			}
+		}
+		return SUCCESS;
+	}
+	
+	
+	
+	public String csearchq() throws SQLException {
+		Title="问答题";
+		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from choose");
+		rs = stmt.executeQuery("select * from question");
+		while(rs.next()) {
+			if(rs.getString("subject").equals("chinese")) {
+			Description.add("问答题:"+rs.getString("description"));
+			//System.out.println(rs.getString("description"));
+			Answer1.add(rs.getString("answer"));
+			HardLevel.add(rs.getString("hardlevel"));
+			}
+		}
+		return SUCCESS;
+	}
+	public String csearchj() throws SQLException {
+		Title="判断题";
+		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from choose");
+		rs = stmt.executeQuery("select * from judge");
+		while(rs.next()) {
+			if(rs.getString("subject").equals("chinese")) {
+			Description.add("判断题:"+rs.getString("description"));
+			System.out.println("chinese");
+			Answer1.add(rs.getString("answer"));
+			HardLevel.add(rs.getString("hardlevel"));
+			}
 		}
 		return SUCCESS;
 	}
@@ -372,8 +409,9 @@ public class Main extends ActionSupport{
 				String optiond = rs.getString("optiond");
 				String answer = rs.getString("answer");
 				String hard=rs.getString("hardlevel");
-				stmt1.executeUpdate("INSERT INTO "+id+" (type,description, optiona,optionb,optionc,optiond,answer, hardlevel)VALUES(\""+
-						"choose"+"\", \""+descrp+"\", \""+optiona+"\", \""+optionb+"\", \""+optionc+"\", \""+optiond+"\", \""+answer+"\", \""+hard+"\")");
+				String subject = rs.getString("subject");
+				stmt1.executeUpdate("INSERT INTO "+id+" (type,description, optiona,optionb,optionc,optiond,answer, hardlevel,subject)VALUES(\""+
+						"choose"+"\", \""+descrp+"\", \""+optiona+"\", \""+optionb+"\", \""+optionc+"\", \""+optiond+"\", \""+answer+"\", \""+hard+"\", \""+subject+"\")");
 				
 				
 				
@@ -388,7 +426,8 @@ public class Main extends ActionSupport{
 				}
 				String answer = rs.getString("answer");
 				String hard=rs.getString("hardlevel");
-				stmt1.executeUpdate("INSERT INTO "+ id+" ( type,description, answer, hardlevel)VALUES(\""+"judge"+"\", \""+descrp+"\", \""+answer+"\", \""+hard+"\")");
+				String subject = rs.getString("subject");
+				stmt1.executeUpdate("INSERT INTO "+ id+" ( type,description, answer, hardlevel,subject)VALUES(\""+"judge"+"\", \""+descrp+"\", \""+answer+"\", \""+hard+"\", \""+subject+"\")");
 				
 				
 			}
@@ -403,7 +442,8 @@ public class Main extends ActionSupport{
 				}
 				String answer = rs.getString("answer");
 				String hard=rs.getString("hardlevel");
-				stmt1.executeUpdate("INSERT INTO "+"  "+ id+" ( type,description, answer, hardlevel)VALUES(\""+"question"+"\", \""+descrp+"\", \""+answer+"\", \""+hard+"\")");
+				String subject=rs.getString("subject");
+				stmt1.executeUpdate("INSERT INTO "+"  "+ id+" ( type,description, answer, hardlevel,subject)VALUES(\""+"question"+"\", \""+descrp+"\", \""+answer+"\", \""+hard+"\", \""+subject+"\")");
 				
 			}
 		}
@@ -502,9 +542,11 @@ public class Main extends ActionSupport{
 		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
 		ResultSet rs = stmt.executeQuery("select * from choose");
 		while(rs.next()) {
-			Description.add("选择题:"+rs.getString("description"));
-			Answer1.add(rs.getString("answer"));
-			HardLevel.add(rs.getString("hardlevel"));
+			if(rs.getString("subject").equals("math")) {
+				Description.add("选择题:"+rs.getString("description"));
+				Answer1.add(rs.getString("answer"));
+				HardLevel.add(rs.getString("hardlevel"));
+			}
 		}
 		Statement stmt1 = (Statement) Tool.initSQL("test", "root","qazwsx@34");
 		rs=stmt1.executeQuery("select * from num");
@@ -519,11 +561,52 @@ public class Main extends ActionSupport{
 		//stmt1.executeUpdate("UPDATE num set name= "+EXNM);
 		//System.out.println("dwe");
 		stmt1.executeUpdate("create table "+EXNM+" (type varchar(20) NOT NULL,description varchar(400),optiona varchar(20),"
-				+ "optionb varchar(20),optionc varchar(20),optiond varchar(20),answer varchar(50),hardlevel varchar(20))");
+				+ "optionb varchar(20),optionc varchar(20),optiond varchar(20),answer varchar(50),hardlevel varchar(20),subject varchar(40))");
 		stmt1.executeUpdate("UPDATE num set name= "+"\""+(String) EXNM+"\"");
 		System.out.println("dwe");
 		return SUCCESS;
 	}
+	
+	
+	public String cgetchoose() throws SQLException {
+		Title="选择题";
+		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from choose");
+		while(rs.next()) {
+			if(rs.getString("subject").equals("chinese")) {
+				Description.add("选择题:"+rs.getString("description"));
+				Answer1.add(rs.getString("answer"));
+				HardLevel.add(rs.getString("hardlevel"));
+			}
+		}
+		Statement stmt1 = (Statement) Tool.initSQL("test", "root","qazwsx@34");
+		rs=stmt1.executeQuery("select * from num");
+		String e_name="";
+		if(!rs.next()){
+			System.out.println("未知错误");
+			
+			return ERROR;
+		}
+		e_name= rs.getString("name");
+		System.out.println(e_name);
+		//stmt1.executeUpdate("UPDATE num set name= "+EXNM);
+		//System.out.println("dwe");
+		stmt1.executeUpdate("create table "+EXNM+" (type varchar(20) NOT NULL,description varchar(400),optiona varchar(20),"
+				+ "optionb varchar(20),optionc varchar(20),optiond varchar(20),answer varchar(50),hardlevel varchar(20),subject varchar(40))");
+		stmt1.executeUpdate("UPDATE num set name= "+"\""+(String) EXNM+"\"");
+		System.out.println("dwe");
+		return SUCCESS;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public String getscore() throws SQLException
 	{

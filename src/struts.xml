@@ -61,17 +61,29 @@
 			<result name="fail">/hello.jsp</result>
 			<result name="error" type="redirect">/getquestion.action</result>
 		</action>
+		
+		<action name="cconstruct" class="qa_system.Main" method="ConstructTest">
+			<result name="success" type="redirect">/cmanger1.action</result>
+			<result name="fail">/hello.jsp</result>
+			<result name="error" type="redirect">/cgetquestion.action</result>
+		</action>
+		
 		<action name="manger1" class="qa_system.Main" method="searchj">
 			<result name="success">/manger.jsp</result>
+		</action>
+		<action name="cmanger1" class="qa_system.Main" method="csearchj">
+			<result name="success">/cmanger.jsp</result>
 		</action>
 		<action name="getquestion" class="qa_system.Main" method="searchq">
 			<result name="success">/manger.jsp</result>
 		</action>
-		
+		<action name="cgetquestion" class="qa_system.Main" method="csearchq">
+			<result name="success">/cmanger.jsp</result>
+		</action>
 		
 		
 		<action name="m1">
-			<result>/examname.jsp</result>
+			<result>/mesubject.jsp</result>
 		</action>
 		
 		<action name="m2" class="qa_system.Main" method="exam">
@@ -90,6 +102,13 @@
 			<result>/score.jsp</result>
 		</action>
 		
+		<action name="memath">
+			<result>/examname.jsp</result>
+		</action>
+		
+		<action name="mechinese">
+			<result>/cexamname.jsp</result>
+		</action>
 		
 		
 		
@@ -98,7 +117,12 @@
 		<action name="m3" class="qa_system.Main" method="getchoose">
 			<result>/manger.jsp</result>
 		</action>
-
+		
+		<action name="cm3" class="qa_system.Main" method="cgetchoose">
+			<result>/cmanger.jsp</result>
+		</action>
+	
+	
 		
 		
    </package>
