@@ -204,7 +204,10 @@ public class Main extends ActionSupport{
 		else if(Username.equals(rs.getString("Username"))&&Password.equals(rs.getString("password"))&&rs.getString("whose").equals("teacher")&&rs.getString("subject").equals("chinese")) {
 			return "chinese";
 		}
-		Class.forName("com.mysql.jdbc.Driver");
+		else {
+			return "student";
+		}
+		/*Class.forName("com.mysql.jdbc.Driver");
 		Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"test"+"?characterEncoding=utf8","root","qazwsx@34"); 
 		DatabaseMetaData databaseMetaData = (DatabaseMetaData) connect.getMetaData();
 		ResultSet tables = databaseMetaData.getTables(null, null, "%", null);
@@ -215,8 +218,51 @@ public class Main extends ActionSupport{
 			ExamList.add(tables.getString("TABLE_NAME"));
 			HardLevel.add(GetHardLevel(tables.getString("TABLE_NAME")));
 		}
-		return "student";
+		return "student";*/
     }
+	
+	public String stmath() throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"test"+"?characterEncoding=utf8","root","qazwsx@34"); 
+		DatabaseMetaData databaseMetaData = (DatabaseMetaData) connect.getMetaData();
+		ResultSet tables = databaseMetaData.getTables(null, null, "%", null);
+		while (tables.next()) {
+			if("num".equals(tables.getString("TABLE_NAME"))) {
+				continue;
+			}
+			else if("math".equals(Getsubject(tables.getString("TABLE_NAME")))) {
+				ExamList.add(tables.getString("TABLE_NAME"));
+				HardLevel.add(GetHardLevel(tables.getString("TABLE_NAME")));
+			}
+		}
+		return SUCCESS;
+	}
+	
+	public String stchinese() throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"test"+"?characterEncoding=utf8","root","qazwsx@34"); 
+		DatabaseMetaData databaseMetaData = (DatabaseMetaData) connect.getMetaData();
+		ResultSet tables = databaseMetaData.getTables(null, null, "%", null);
+		while (tables.next()) {
+			if("num".equals(tables.getString("TABLE_NAME"))) {
+				continue;
+			}
+			else if("chinese".equals(Getsubject(tables.getString("TABLE_NAME")))) {
+				ExamList.add(tables.getString("TABLE_NAME"));
+				HardLevel.add(GetHardLevel(tables.getString("TABLE_NAME")));
+			}
+		}
+		return SUCCESS;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public String judge() throws SQLException {
 		Statement stmt = (Statement) Tool.initSQL("problem", "root","qazwsx@34");
 		stmt.executeUpdate("INSERT INTO judge (description, answer, hardlevel,subject)VALUES(\""+choose_text+"\", \""+answer+"\", \""+hard+"\", \""+"math"+"\")");
@@ -391,11 +437,16 @@ public class Main extends ActionSupport{
 		//stmt1.executeUpdate("create table "+table+" (type varchar(20) NOT NULL,description varchar(400),optiona varchar(20),"
 			//	+ "optionb varchar(20),optionc varchar(20),optiond varchar(20),answer varchar(50),hardlevel varchar(20))");
 		//String table = 
-		for(int i=0;i<problems.length;i++) {
-			String a[]=problems[i].split(":");
-			String descrp=problems[i].substring(4);
-			System.out.println(a[0]);
-			System.out.println(descrp);
+		for(int i=0;problems!=null&&i<problems.length;i++) {
+				String a[] = null;
+				String descrp = null;
+				System.out.println("dfewf");
+			if(problems.length!=0) {
+				a=problems[i].split(":");
+				descrp=problems[i].substring(4);
+				System.out.println(a[0]);
+				System.out.println(descrp);
+			}
 			if(a[0].equals("选择题")) {
 				CN++;
 				rs = stmt.executeQuery("select * from problem.choose where description=\""+descrp+"\"");
@@ -479,6 +530,18 @@ public class Main extends ActionSupport{
 		return SUCCESS;
 		
 		
+	}
+	
+	public String Getsubject(String TableName) throws SQLException {
+		Statement stmt = (Statement) Tool.initSQL("test", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from "+TableName);
+		String subject=null;
+		System.out.println(TableName);
+		while(rs.next()) {
+			subject=rs.getString("subject");
+			return subject;
+		}
+		return subject;
 	}
 	public String GetHardLevel(String TableName) throws SQLException {
 		Statement stmt = (Statement) Tool.initSQL("test", "root","qazwsx@34");

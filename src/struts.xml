@@ -20,7 +20,7 @@
 			<result name="success">/teacher.jsp</result>
 			<result name="chinese">/chineseteacher.jsp</result>
 			<result name="error"  >/mangerLogin.jsp</result>
-			<result name="student">/DoTest.jsp</result>
+			<result name="student">/studentsubject.jsp</result>
 		</action>
 		
 		<action name="judge1" class="qa_system.Main" method="judge">
@@ -120,6 +120,14 @@
 		
 		<action name="cm3" class="qa_system.Main" method="cgetchoose">
 			<result>/cmanger.jsp</result>
+		</action>
+		
+		<action name="stmath" class="qa_system.Main" method="stmath">
+			<result>/DoTest.jsp</result>
+		</action>
+		
+		<action name="stchinese" class="qa_system.Main" method="stchinese">
+			<result>/DoTest.jsp</result>
 		</action>
 	
 	
