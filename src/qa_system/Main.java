@@ -25,6 +25,8 @@ public class Main extends ActionSupport{
 	public String examn;
 	public String EXNM;
 	public String Title;
+	public String Message;
+	public String problemName;
 	ArrayList<String> Multianswer = new ArrayList<String>();
 	public String[] problems;
 	public String[] StudentAnswer;
@@ -193,7 +195,7 @@ public class Main extends ActionSupport{
 		ResultSet rs = stmt.executeQuery("select * from user1 where username=\""+Username+"\"");
 		if(!rs.next()){
 			System.out.println("dwd");
-			return "student";
+			return "wrong";
 		}
 		if(Username.equals(rs.getString("Username"))&&Password.equals(rs.getString("password"))&&rs.getString("whose").equals("teacher")&&rs.getString("subject").equals("math")) {
 			return SUCCESS;
@@ -204,8 +206,12 @@ public class Main extends ActionSupport{
 		else if(Username.equals(rs.getString("Username"))&&Password.equals(rs.getString("password"))&&rs.getString("whose").equals("teacher")&&rs.getString("subject").equals("chinese")) {
 			return "chinese";
 		}
-		else {
+		else if(Username.equals(rs.getString("Username"))&&Password.equals(rs.getString("password"))&&rs.getString("whose").equals("student")){
 			return "student";
+		}
+		else {
+			Message="用户名或密码错误";
+			return "wrong";
 		}
 		/*Class.forName("com.mysql.jdbc.Driver");
 		Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"test"+"?characterEncoding=utf8","root","qazwsx@34"); 
@@ -580,6 +586,51 @@ public class Main extends ActionSupport{
 		return SUCCESS;
 	}
 	
+	public String se() throws SQLException {
+		Statement stmt = (Statement) Tool.initSQL("test", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from num");
+		while(rs.next()) {
+			ExamName=rs.getString("name");
+		}
+		rs = stmt.executeQuery("select * from "+ExamName);
+		while(rs.next()) {
+			if(rs.getString("type").equals("choose")) {
+				Description.add("选择题:"+rs.getString("description")+"()");
+				System.out.println(rs.getString("description"));
+				CA.add("A:"+rs.getString("optiona"));
+				CB.add("B:"+rs.getString("optionb"));
+				CC.add("C:"+rs.getString("optionc"));
+				CD.add("D:"+rs.getString("optiond"));
+			}
+			else if(rs.getString("type").equals("judge")){
+				Description.add("判断题："+rs.getString("description")+"()");
+				System.out.println(rs.getString("description"));
+			}
+			else {
+				Description.add("问答题："+rs.getString("description")+"()");
+			}
+		}
+		return SUCCESS;
+	}
+	
+	public String delete() throws SQLException {
+		Statement stmt = (Statement) Tool.initSQL("test", "root","qazwsx@34");
+		ResultSet rs = stmt.executeQuery("select * from num");
+		while(rs.next()) {
+			ExamName=rs.getString("name");
+		}
+		String[] a=problemName.split(":");
+		System.out.println(a[1]);
+		String c = a[1];
+		String descrp=c.substring(0, c.length()-2);
+		System.out.println(descrp);
+		//String descrp=c;
+		System.out.println(ExamName);
+		stmt.executeUpdate("delete from "+ExamName+" where description = "+"\""+descrp+"\"");
+		
+		return SUCCESS;
+	}
+	
 	public String MakeExam() throws SQLException {
 		Statement stmt = (Statement) Tool.initSQL("test", "root","qazwsx@34");
 		ResultSet rs = stmt.executeQuery("select * from "+ExamName);
@@ -702,7 +753,22 @@ public class Main extends ActionSupport{
 	public void setScore(double score) {
 		Score = score;
 	}
-	
+	public String getMessage() {
+		return Message;
+	}
+	public void setMessage(String message) {
+		Message = message;
+	}
+	public String getProblemName() {
+		return problemName;
+	}
+	public void setProblemName(String problemName) {
+		this.problemName = problemName;
+	}
+	public String confirm()
+	{
+		return SUCCESS;
+	}
 
 	
 	

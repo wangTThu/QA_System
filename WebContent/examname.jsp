@@ -173,7 +173,6 @@ body{
 		<div class="login">
 		<form action="m3" id="lloggin">
 				<input type="text" placeholder="TestName" name="EXNM"><br>
-				
 				<input type="button" onclick="formSubmit()" value="confrim">
 			</form>
 		</div>

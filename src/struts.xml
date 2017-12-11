@@ -9,7 +9,7 @@
    <package name="qa_system" namespace="/" extends="struts-default">
 
 		<action name="home">
-			<result>/hello.jsp</result>
+			<result>/index.jsp</result>
 			
 		</action>
 		<action name="manger"  class="qa_system.Main" method="search">
@@ -21,6 +21,7 @@
 			<result name="chinese">/chineseteacher.jsp</result>
 			<result name="error"  >/mangerLogin.jsp</result>
 			<result name="student">/studentsubject.jsp</result>
+			<result name="wrong">/index.jsp</result>
 		</action>
 		
 		<action name="judge1" class="qa_system.Main" method="judge">
@@ -58,13 +59,13 @@
 		
 		<action name="construct" class="qa_system.Main" method="ConstructTest">
 			<result name="success" type="redirect">/manger1.action</result>
-			<result name="fail">/hello.jsp</result>
+			<result name="fail" type="redirect">/se.action</result>
 			<result name="error" type="redirect">/getquestion.action</result>
 		</action>
 		
 		<action name="cconstruct" class="qa_system.Main" method="ConstructTest">
 			<result name="success" type="redirect">/cmanger1.action</result>
-			<result name="fail">/hello.jsp</result>
+			<result name="fail" type="redirect">/se.action</result>
 			<result name="error" type="redirect">/cgetquestion.action</result>
 		</action>
 		
@@ -130,7 +131,17 @@
 			<result>/DoTest.jsp</result>
 		</action>
 	
-	
+		<action name="se" class="qa_system.Main" method="se">
+			<result>/hello.jsp</result>
+		</action>
+		
+		<action name="confirm" class="qa_system.Main" method="confirm">
+			<result>/mangerLogin.jsp</result>
+		</action>
+		
+		<action name="deleteproblem" class="qa_system.Main" method="delete">
+			<result type="redirect">/se.action</result>
+		</action>
 		
 		
    </package>

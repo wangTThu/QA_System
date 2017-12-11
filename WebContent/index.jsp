@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html >
 <head>
@@ -163,6 +166,7 @@ body{
 
 </head>
 
+
 <body>
   <div class="body"></div>
 		<div class="grad"></div>
@@ -172,6 +176,12 @@ body{
 		<br>
 		<div class="login">
 		<form action="login1" id="lloggin">
+		<s:if test="Message != null"> 
+<script  type="text/javascript">
+var msg = "${message}";
+alert(msg);
+</script>
+</s:if>
 				<input type="text" placeholder="username" name="Username"><br>
 				<input type="password" placeholder="password" name="Password"><br>
 				<input type="button" onclick="formSubmit()" value="Login">
